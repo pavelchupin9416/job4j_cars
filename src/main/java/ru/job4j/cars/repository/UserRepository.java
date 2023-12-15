@@ -27,6 +27,8 @@ public class UserRepository {
             session.getTransaction().commit();
         }  catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
         return user;
     }
@@ -48,6 +50,8 @@ public class UserRepository {
             session.getTransaction().commit();
         }  catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
     }
 
@@ -66,6 +70,8 @@ public class UserRepository {
             session.getTransaction().commit();
         }  catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
     }
 
@@ -75,8 +81,18 @@ public class UserRepository {
      */
     public List<User> findAllOrderById() {
         Session session = sf.openSession();
-        Query<User> query = session.createQuery(
+        Query<User> query = null;
+        try {
+        session.beginTransaction();
+        query = session.createQuery(
                 "from User as i ORDER BY i.id ASC", User.class);
+        session.getTransaction().commit();
+        }  catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        assert query != null;
         return query.getResultList();
     }
 
@@ -86,9 +102,19 @@ public class UserRepository {
      */
     public Optional<User> findById(int userId) {
         Session session = sf.openSession();
-        Query<User> query = session.createQuery(
+        Query<User> query = null;
+        try {
+            session.beginTransaction();
+            query = session.createQuery(
                 "from User as i where i.id = :fId", User.class);
         query.setParameter("fId", userId);
+            session.getTransaction().commit();
+        }  catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        assert query != null;
         return query.uniqueResultOptional();
     }
 
@@ -99,9 +125,19 @@ public class UserRepository {
      */
     public List<User> findByLikeLogin(String key) {
         Session session = sf.openSession();
-        Query<User> query = session.createQuery(
+        Query<User> query = null;
+        try {
+                session.beginTransaction();
+                query = session.createQuery(
                 "from User as i where i.login LIKE :fKey", User.class);
         query.setParameter("fKey", "%" + key + "%");
+            session.getTransaction().commit();
+        }  catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        assert query != null;
         return query.getResultList();
     }
 
@@ -112,9 +148,18 @@ public class UserRepository {
      */
     public Optional<User> findByLogin(String login) {
         Session session = sf.openSession();
-        Query<User> query = session.createQuery(
+        Query<User> query = null;
+        try {
+            session.beginTransaction();
+            query = session.createQuery(
                 "from User as i where i.login = :fLogin", User.class);
         query.setParameter("fLogin", login);
+        }  catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        assert query != null;
         return query.uniqueResultOptional();
     }
 }
