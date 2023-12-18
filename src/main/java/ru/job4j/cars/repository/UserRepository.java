@@ -22,7 +22,6 @@ public class UserRepository {
             Session session = sf.openSession();
         try {
             session.beginTransaction();
-            //session.createQuery("INSERT INTO User select i.id, i.login, i.password");
             session.save(user);
             session.getTransaction().commit();
         }  catch (Exception e) {
@@ -92,7 +91,6 @@ public class UserRepository {
         } finally {
             session.close();
         }
-        assert query != null;
         return query.getResultList();
     }
 
@@ -114,7 +112,6 @@ public class UserRepository {
         } finally {
             session.close();
         }
-        assert query != null;
         return query.uniqueResultOptional();
     }
 
@@ -137,7 +134,6 @@ public class UserRepository {
         } finally {
             session.close();
         }
-        assert query != null;
         return query.getResultList();
     }
 
@@ -159,7 +155,6 @@ public class UserRepository {
         } finally {
             session.close();
         }
-        assert query != null;
         return query.uniqueResultOptional();
     }
 }
