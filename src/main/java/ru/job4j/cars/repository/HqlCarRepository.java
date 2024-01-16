@@ -31,8 +31,7 @@ public class HqlCarRepository implements CarRepository {
         return crudRepository.run("UPDATE Car SET name = :fName, engine = :fEngine, owners = :fOwners WHERE id = :fId",
                 Map.of("fName", car.getName(),
                         "fEngine", car.getEngine(),
-                        "fId", car.getId(),
-                        "fOwners ", car.getOwners()));
+                        "fId", car.getId()));
     }
 
     @Override

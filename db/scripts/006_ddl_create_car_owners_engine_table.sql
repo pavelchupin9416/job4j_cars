@@ -19,11 +19,7 @@ create table history_owners(
     id   serial primary key,
     car_id int REFERENCES car(id)    NOT NULL,
     owner_id int REFERENCES owners(id)    NOT NULL,
-    unique (car_id, owner_id)
-);
-
-create table history(
-    id serial primary key,
     startAI timestamp,
-    endAt timestamp
+    endAt timestamp,
+    unique (car_id, owner_id)
 );

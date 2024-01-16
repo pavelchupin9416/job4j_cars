@@ -6,34 +6,37 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "car")
+@Table(name = "history_owners")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Car {
+public class OwnerHistory {
+
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "car_id")
+    Car car;
 
     @ManyToOne
-    @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
-    private Engine engine;
+    @JoinColumn(name = "owner_id")
+    Owner owner;
+
+    private LocalDateTime startAI;
+
+    private LocalDateTime endAt;
 }
+
