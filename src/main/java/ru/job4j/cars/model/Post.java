@@ -23,7 +23,7 @@ public class Post {
 
     private LocalDateTime created;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "auto_user_id")
     private User user;
 
@@ -38,4 +38,13 @@ public class Post {
             inverseJoinColumns = { @JoinColumn(name = "post_id") }
     )
     private List<User> participates = new ArrayList<>();
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "car_id")
+    private Car car;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "file_id")
+    private File file;
+
 }

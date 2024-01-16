@@ -19,16 +19,16 @@ public class CrudRepository {
     private final SessionFactory sf;
 
     public boolean run(Consumer<Session> command) {
-        boolean result = true;
+        boolean result = false;
         try {
             tx(session -> {
                         command.accept(session);
                         return null;
                     }
             );
+            result = true;
         } catch (HibernateException e) {
             e.printStackTrace();
-            result = false;
         }
 
         return result;
