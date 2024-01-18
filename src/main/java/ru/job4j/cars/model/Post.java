@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "auto_post")
@@ -43,8 +44,8 @@ public class Post {
     @JoinColumn(name = "car_id")
     private Car car;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "file_id")
-    private File file;
+    private Set<File> files;
 
 }
