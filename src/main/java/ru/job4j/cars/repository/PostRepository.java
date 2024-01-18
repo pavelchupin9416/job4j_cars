@@ -22,6 +22,6 @@ public interface PostRepository {
 
     Collection<Post> findWithPhoto();
 
-    Collection<Post> findByBrand(Brand brand);
+    Collection<Post> findByBrand(String brand);
 
 }

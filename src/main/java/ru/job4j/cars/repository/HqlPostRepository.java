@@ -64,10 +64,10 @@ public class HqlPostRepository implements PostRepository {
     }
 
     @Override
-    public Collection<Post> findByBrand(Brand brand) {
+    public Collection<Post> findByBrand(String brand) {
         return crudRepository.query("select distinct p from Post p JOIN FETCH p.car JOIN FETCH p.priceHistory "
                         + "JOIN FETCH p.file JOIN FETCH p.user"
-                        + "where p.brand = :brand",
+                        + "where p.brand.name = :brand",
                 Post.class, Map.of("brand", brand));
     }
 }

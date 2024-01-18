@@ -39,5 +39,5 @@ public class Car {
 
     @ManyToOne
     @JoinColumn(name = "brand_id")
-    Brand brand;
+    private Brand brand;
 }
