@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -46,6 +47,6 @@ public class Post {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "file_id")
-    private Set<File> files;
+    private Set<File> files = new HashSet<>();
 
 }
